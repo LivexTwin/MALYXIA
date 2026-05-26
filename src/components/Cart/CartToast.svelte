@@ -1,10 +1,10 @@
 <script>
+  import { onMount } from "svelte";
+
   import { cart } from "@stores/cart";
   import { cartToast } from "@stores/cartToast";
   import Money from "@components/Money.svelte";
-
-
-  import {  getCart } from "@lib/cartActions";
+  import { getCart } from "@lib/cartActions";
   import CartRow from "./CartRow.svelte";
 
   $: toast = $cartToast;
@@ -12,6 +12,21 @@
 
   let isClosing = false;
 
+  // ----------------------------
+  // CLOSE TOAST
+  // ----------------------------
+  function close() {
+    isClosing = true;
+
+    setTimeout(() => {
+      cartToast.set({ ...toast, open: false });
+      isClosing = false;
+    }, 100);
+  }
+
+  // ----------------------------
+  // CHECKOUT
+  // ----------------------------
   async function goToCheckout() {
     const fresh = await getCart($cart.id);
 
@@ -20,25 +35,22 @@
     }
   }
 
-  function close() {
-    isClosing = true;
-    setTimeout(() => {
-      toast.open = false;
-      isClosing = false;
-    }, 200);
-  }
+  // ----------------------------
+  // ESC KEY (stable listener)
+  // ----------------------------
+  onMount(() => {
+    const handleKeydown = (e) => {
+      if (e.key === "Escape") close();
+    };
 
-  function handleKeydown(e) {
-    if (e.key === "Escape") close();
-  }
-
-  $: if (toast.open && typeof window !== "undefined") {
     window.addEventListener("keydown", handleKeydown);
-  }
 
-  $: if (!toast.open && typeof window !== "undefined") {
-    window.removeEventListener("keydown", handleKeydown);
-  }
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  });
+
+
 </script>
 
 {#if toast.open || isClosing}

@@ -22,7 +22,9 @@ const product = data.products.nodes[0];
     <section
       class="min-h-[100svh] md:min-h-screen flex flex-col justify-center items-center text-center px-6 relative"
     >
-      <h1 class="text-6xl md:text-8xl font-bold tracking-tight">INTENT</h1>
+      <h1 class="text-6xl md:text-8xl font-medium font-mono tracking-tighter">
+        INTENT
+      </h1>
 
       <p class="mt-4 text-[10px] uppercase tracking-[0.25em] opacity-60">
         Chapter 1
@@ -37,9 +39,7 @@ const product = data.products.nodes[0];
     <!-- 🌑 SPLIT PRODUCT REALITY -->
     <section class="min-h-screen grid grid-cols-1 md:grid-cols-2 gap-0">
       <!-- LEFT: LORE / SPEC BLOCK -->
-      <div
-        class="p-8 md:p-16 font-mono text-xs leading-relaxed border-r border-black/10"
-      >
+      <div class="p-8 md:p-16 text-xs leading-relaxed border-r border-black/10">
         <p class="uppercase opacity-60 mb-6">[DROP_01] // INTENT TEE</p>
 
         <p class="mb-6">
@@ -50,9 +50,9 @@ const product = data.products.nodes[0];
         </p>
         <p class="uppercase opacity-60 mb-2">SPECIFICATION:</p>
         <p class="mb-6">
-          - 280 GSM LUXURY COMBED COTTON<br />
-          - CUSTOM OVERSIZED BOX FIT<br />
-          - HAND-PRINTED FADED BLACK FINISH
+          - HEAVYWEIGHT STRUCTURED BUILD<br />
+          - RELAXED BOXY SILHOUETTE<br />
+          - FADED BLACK WASH FINISH (HAND-TREATED)
         </p>
 
         <p class="uppercase opacity-60 mb-2">THE PHILOSOPHY:</p>
@@ -65,7 +65,7 @@ const product = data.products.nodes[0];
       <!-- RIGHT: MEDIA + PURCHASE -->
       <div class="p-8 md:p-16 flex flex-col">
         <!-- MEDIA -->
-        <div class="w-full">
+        <div class="w-full mb-6">
           <ProductMediaGallery
             client:load
             images={product.images}
@@ -76,9 +76,11 @@ const product = data.products.nodes[0];
         </div>
 
         <!-- TITLE -->
-        <h2 class="uppercase tracking-wide text-sm mt-6">
-          {product.title}
-        </h2>
+        <a href={`/products/${product.handle}`} class="w-fit">
+          <h2 class="uppercase tracking-wide text-sm">
+            {product.title}
+          </h2>
+        </a>
 
         <!-- PURCHASE -->
         <ProductPurchaseBlock

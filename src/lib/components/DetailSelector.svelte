@@ -15,6 +15,18 @@
   $: sizeOptions = getAvailableOptions && selectedOptions
     ? getAvailableOptions("Size")
     : [];
+
+    let isKeyboardUser = false;
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        isKeyboardUser = true;
+      }
+    });
+    
+    window.addEventListener("mousedown", () => {
+      isKeyboardUser = false;
+    });
 </script>
 
 <section class="flex items-center gap-1">
@@ -24,12 +36,19 @@
      <span>{selectedOptions.Size || "Size +"}</span>
    </div>
 
-    <select
-      class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-      aria-label="Select size"
-
-       bind:value={selectedOptions}
-       on:change={(e) => updateOption("Size", e.target.value)}
+   <select
+    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+    aria-label="Select size"
+    bind:value={selectedOptions}
+    on:focus={() => {
+    if (isKeyboardUser) {
+      document.querySelector('.select-wrapper')?.classList.add('keyboard-focus');
+    }
+  }}
+    on:blur={() => {
+      document.querySelector('.select-wrapper')?.classList.remove('keyboard-focus');
+    }}
+    on:change={(e) => updateOption("Size", e.target.value)}
     >
      <option disabled selected  value="">
       -
@@ -56,3 +75,4 @@
     size="lg"
   />
 </section>
+

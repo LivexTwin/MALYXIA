@@ -9,6 +9,6 @@
   const drop = getDropState(variants, DROP_SIZE);
 </script>
 
-<div class="font-mono text-xs uppercase opacity-70 mb-6">
+<div class="text-xs uppercase opacity-70 mb-6">
   {drop.label}
 </div>

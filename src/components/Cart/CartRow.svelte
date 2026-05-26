@@ -13,14 +13,16 @@
 
   <!-- IMAGE -->
   <div class="shrink-0 bg-white">
-    <ShopifyImage
-      image={normalizeProductImage(line.merchandise.product)}
-      loading="lazy"
-      classList="w-[3rem] h-[3rem]  object-contain"
-      sizes="(max-width: 40px) 40px, 40px"
-      width={40}
-      height={40}
-    />
+       <a href={`/products/${line.merchandise.product.handle}`}>
+      <ShopifyImage
+        image={normalizeProductImage(line.merchandise.product)}
+        loading="lazy"
+        classList="w-[3rem] h-[3rem]  object-contain"
+        sizes="(max-width: 40px) 40px, 40px"
+        width={40}
+        height={40}
+      />
+    </a>
   </div>
 
   <!-- CENTER TEXT -->
