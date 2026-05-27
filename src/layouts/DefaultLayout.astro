@@ -1,11 +1,18 @@
 ---
 import "../styles/global.css";
 import "../styles/layout.css";
+
 import CartProvider from "../components/Cart/CartProvider.svelte";
 import CartToast from "../components/Cart/CartToast.svelte";
 import TheNavigation from "../components/TheNavigation.astro";
 import SeoHead from "@components/SeoHead.astro";
 import { ClientRouter } from "astro:transitions";
+
+// 🔥 SINGLE SWITCH
+// const isLaunchMode = true;
+
+const isLaunchMode =
+  Date.now() < new Date("2026-06-06T12:00:00-04:00").getTime(); 
 ---
 
 <!doctype html>
@@ -20,25 +27,108 @@ import { ClientRouter } from "astro:transitions";
 
   <body>
     <div id="site">
-      <CartProvider client:load />
-      <CartToast client:load />
-      <header>
-        <TheNavigation />
-      </header>
-      <svg class="absolute w-0 h-0">
-        <defs>
-          <filter id="noiseFilter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"
-            ></feTurbulence>
-          </filter>
-        </defs>
-      </svg>
 
-      <div class="noise-overlay"></div>
+      {/* =========================
+          🔥 GLOBAL SYSTEMS
+      ========================= */}
+      {!isLaunchMode && (
+        <>
+          <CartProvider client:load />
+          <CartToast client:load />
+        </>
+      )}
+
+      {/* =========================
+          🚫 NAV
+      ========================= */}
+      {!isLaunchMode && (
+        <header>
+          <TheNavigation />
+        </header>
+      )}
+
+      {/* =========================
+          🌫 NOISE
+      ========================= */}
+      {!isLaunchMode && (
+        <>
+          <svg class="absolute w-0 h-0">
+            <defs>
+              <filter id="noiseFilter">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.9"
+                  numOctaves="3"
+                />
+              </filter>
+            </defs>
+          </svg>
+
+          <div class="noise-overlay"></div>
+        </>
+      )}
+
+      {/* =========================
+          📦 MAIN CONTENT CONTROL
+      ========================= */}
 
       <main>
-        <slot />
+        {isLaunchMode ? (
+          // 🔥 THIS IS THE IMPORTANT PART
+          <div class="min-h-screen flex flex-col items-center justify-center text-center">
+
+            <h1 class="text-sm tracking-[0.35em] uppercase opacity-80">
+              FIRST RELEASE
+            </h1>
+
+            <p class="mt-4 text-lg">
+              06.06.26 | 12 PM EST
+            </p>
+
+            <p id="countdown" class="mt-6 text-xs uppercase opacity-60">
+              Loading...
+            </p>
+
+            <p class="mt-10 text-[10px] opacity-40 tracking-widest">
+              malyxia.xyz
+            </p>
+
+          </div>
+        ) : (
+          <slot />
+        )}
       </main>
+
     </div>
+
+    {/* =========================
+        ⏱ COUNTDOWN SCRIPT
+    ========================= */}
+    {isLaunchMode && (
+      <script is:inline>
+        const launchDate = new Date("2026-06-06T12:00:00-04:00").getTime();
+        const el = document.getElementById("countdown");
+
+        function tick() {
+          if (!el) return;
+
+          const diff = launchDate - Date.now();
+
+          if (diff <= 0) {
+            el.innerText = "LIVE";
+            return;
+          }
+
+          const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const m = Math.floor((diff / (1000 * 60)) % 60);
+
+          el.innerText = `${d}d ${h}h ${m}m`;
+        }
+
+        tick();
+        setInterval(tick, 1000);
+      </script>
+    )}
   </body>
 </html>
