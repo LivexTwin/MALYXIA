@@ -16,13 +16,16 @@
   // CLOSE TOAST
   // ----------------------------
   function close() {
+    if (isClosing || !toast.open) return;
+  
     isClosing = true;
+    document.activeElement?.blur();
 
     setTimeout(() => {
       cartToast.set({ ...toast, open: false });
       isClosing = false;
     }, 100);
-  }
+}
 
   // ----------------------------
   // CHECKOUT
@@ -40,13 +43,20 @@
   // ----------------------------
   onMount(() => {
     const handleKeydown = (e) => {
-      if (e.key === "Escape") close();
+        if (e.key !== "Escape") return;
+        if (isClosing || !toast.open) return;
+      
+        e.preventDefault();
+        e.stopPropagation();
+        
+        close();
     };
 
     window.addEventListener("keydown", handleKeydown);
 
     return () => {
       window.removeEventListener("keydown", handleKeydown);
+      
     };
   });
 
@@ -62,12 +72,14 @@
     class:backdrop-out={isClosing}
     on:click={close}
     aria-label="Close cart"
+    inert={isClosing}
   ></button>
 
   <!-- SINGLE CART CONTAINER (always exists during animation) -->
   <section
-    class="px-2 z-52 w-full md:max-w-[280px] fixed bottom-14 md:right-0 md:top-9 md:h-fit rounded-[2px] text-white opacity-fade"
+    class="cart-toast px-2 z-52 w-full md:max-w-[280px] fixed bottom-14 md:right-0 md:top-9 md:h-fit rounded-[2px] text-white opacity-fade "  
     class:fade-out={isClosing}
+    inert={isClosing}
 
   >
 
@@ -113,6 +125,9 @@
 {/if}
 
 <style>
+
+
+
 .backdrop {
   animation: backdrop-in 180ms ease-in-out forwards;
 }

@@ -32,7 +32,7 @@
 <section class="flex items-center gap-1">
   <div class="relative w-fit select-wrapper ">
 
-   <div class="flex items-center justify-center bg-stone-300 px-2 py-0.75 text-xs uppercase tracking-widest rounded-[2px] min-w-[60px]">
+   <div class="flex items-center justify-center bg-stone-300 px-2 h-6 text-xs uppercase tracking-widest rounded-[2px] min-w-[60px]">
      <span>{selectedOptions.Size || "Size +"}</span>
    </div>
 

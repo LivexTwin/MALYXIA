@@ -45,7 +45,7 @@ const colors = getOptionValues(product, "Color");
         class:underline={selectedOptions.Size === size}
         class:opacity-40={!isSizeAvailable(size)}
         class:pointer-events-none={!isSizeAvailable(size)}
-        class=" text-xs hover:underline"
+        class=" text-xs px-2 py-2 min-h-[40px] hover:underline"
       >
         {size}
       </button>
