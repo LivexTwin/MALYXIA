@@ -10,10 +10,16 @@
   export let loading: HTMLImageElement["loading"] = "lazy";
   export let sizes = "100vw";
 
+  export let fetchpriority:
+    | "high"
+    | "low"
+    | "auto"
+    | undefined = undefined;
+
  
   const fallback = "/placeholder.svg";
 
-  const srcSetWidths = [100, 200, 400, 600, 800, 1000, 1200, 1600];
+  const srcSetWidths = [200, 320, 480, 640, 768, 960];
 
   function formatWebpUrl(baseUrl?: string, width?: number): string {
     if (!baseUrl) return fallback;
@@ -57,6 +63,7 @@
     width={image?.width}
     height={image?.height}
     loading={loading}
+    fetchpriority={fetchpriority}
     sizes={sizes}
     srcset={generateSrcSet()}
 
