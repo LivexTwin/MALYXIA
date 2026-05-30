@@ -175,7 +175,7 @@
 
 
   {#if mode === "quick"}
-    <div class="space-y-4">
+    <div class="space-y-5">
 
      <Money
           amount={displayVariant.price.amount}

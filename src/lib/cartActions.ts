@@ -66,12 +66,19 @@ export async function addToCart(variantId: string, quantity = 1) {
   return res;
 }
 
+let isBuying = false;
+
 export async function buyNow(variantId: string) {
-  if (!variantId) return; // or throw
+  if (!variantId || isBuying) return;
 
-  const cart = await addToCart(variantId, 1);
+  isBuying = true;
 
-  window.location.href = cart.checkoutUrl;
+  try {
+    const cart = await addToCart(variantId, 1);
+    window.location.href = cart.checkoutUrl;
+  } finally {
+    isBuying = false;
+  }
 }
 
 /**

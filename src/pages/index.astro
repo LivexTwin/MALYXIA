@@ -21,11 +21,8 @@ const stock = product.dropStock?.value ?? "11/18";
   <SeoHead title="MALYXIA — Chapter 1" />
 
   <main class="relative flex flex-col md:h-screen">
-    <!-- ===================== -->
-    <!-- MOBILE SYSTEM BAR ONLY -->
-    <!-- ===================== -->
     <div
-      class="fixed top-0 left-0 right-0 md:hidden border-b border-black/10 bg-white/95 backdrop-blur-sm z-50"
+      class="fixed top-0 left-0 right-0 md:hidden border-b border-black/10 bg-white/95 backdrop-blur-sm z-40"
     >
       <div
         class="flex items-center justify-between px-4 py-3 text-[10px] uppercase tracking-wider"
@@ -39,17 +36,11 @@ const stock = product.dropStock?.value ?? "11/18";
       </div>
     </div>
 
-    <!-- ===================== -->
-    <!-- HERO / MAIN SYSTEM -->
-    <!-- ===================== -->
     <section
-      class="min-h-[100svh] md:min-h-0 md:flex-1 grid grid-cols-1 md:grid-cols-12 relative overflow-hidden pt-14 md:pt-0"
+      class="min-h-[100svh] md:min-h-0 md:flex-1 flex flex-col relative overflow-hidden pt-14 md:pt-0"
     >
-      <!-- ===================== -->
-      <!-- DESKTOP HEADER STRIP -->
-      <!-- ===================== -->
       <div
-        class="hidden md:grid col-span-12 grid-cols-12 border-b border-black/10 z-10 text-[10px] uppercase tracking-[0.2em] opacity-60"
+        class="hidden md:grid w-full grid-cols-12 border-b border-black/10 z-10 text-[10px] uppercase tracking-[0.2em] opacity-60 flex-shrink-0"
       >
         <div class="p-4 md:col-span-3 border-r border-black/10">
           WE ARE NOT PERFECT
@@ -64,15 +55,11 @@ const stock = product.dropStock?.value ?? "11/18";
         </div>
       </div>
 
-      <!-- ===================== -->
-      <!-- CORE GRID -->
-      <!-- ===================== -->
       <div
-        class="col-span-12 grid grid-cols-1 md:grid-cols-12 items-stretch z-10 relative"
+        class="w-full grid grid-cols-1 md:flex md:flex-1 items-stretch z-10 relative overflow-hidden"
       >
-        <!-- LEFT (SPEC) -->
         <div
-          class="md:block md:col-span-3 border-r border-black/10 p-6 flex flex-col justify-between text-xs"
+          class="hidden md:flex md:w-1/4 border-r border-black/10 p-6 flex-col justify-between text-xs"
         >
           <div class="space-y-4">
             <p class="uppercase opacity-60 text-[10px]">SPECIFICATIONS</p>
@@ -85,15 +72,10 @@ const stock = product.dropStock?.value ?? "11/18";
           </div>
         </div>
 
-        <!-- ===================== -->
-        <!-- CENTER (IMAGE) -->
-        <!-- ===================== -->
         <div
-          class="col-span-1 md:col-span-6 md:border-b-0 p-4 md:p-8 flex items-center justify-center bg-neutral-50/40 md:bg-transparent min-h-[32vh] md:min-h-0"
+          class="w-full md:w-1/2 md:border-b-0 p-4 md:p-8 flex items-center justify-center bg-neutral-50/40 md:bg-transparent min-h-[32vh] md:min-h-0"
         >
-          <div
-            class="w-full max-w-[260px] md:max-w-lg mx-auto mix-blend-multiply"
-          >
+          <div class="w-full md:max-w-lg mx-auto mix-blend-multiply">
             <ProductMediaGallery
               client:load
               images={product.images}
@@ -104,44 +86,41 @@ const stock = product.dropStock?.value ?? "11/18";
           </div>
         </div>
 
-        <!-- ===================== -->
-        <!-- RIGHT (ACTION) -->
-        <!-- ===================== -->
-        <div class="col-span-1 md:col-span-3 p-6 flex flex-col space-y-6">
-          <div class="space-y-3">
-            <div
-              class="flex justify-between items-baseline border-b border-black/5 pb-2"
-            >
-              <a href={`/products/${product.handle}`}>
-                <h2 class="uppercase text-sm">{product.title}</h2>
-              </a>
-              <span class="text-xs opacity-70">$55.00</span>
+        <div
+          class="w-full md:w-1/4 p-6 flex flex-col justify-center items-stretch border-t md:border-t-0 border-black/10"
+        >
+          <div class="space-y-6 w-full">
+            <div class="space-y-3">
+              <div
+                class="flex justify-between items-baseline border-b border-black/5 pb-2"
+              >
+                <a href={`/products/${product.handle}`}>
+                  <h2 class="uppercase text-sm">{product.title}</h2>
+                </a>
+
+                <div class="text-[10px] uppercase opacity-60">
+                  STOCK // {stock}
+                </div>
+              </div>
             </div>
 
-            <div class="text-[10px] uppercase opacity-60">
-              STOCK // {stock}
+            <ProductPurchaseBlock
+              client:only="svelte"
+              product={product}
+              mode="quick"
+            />
+
+            <div class="text-[10px] uppercase opacity-60 space-y-1 pt-6">
+              <p>EST. SHIPPING 2–5 DAYS</p>
+              <p>TRACKED DELIVERY</p>
             </div>
-          </div>
-
-          <ProductPurchaseBlock
-            client:only="svelte"
-            product={product}
-            mode="quick"
-          />
-
-          <div
-            class="text-[10px] uppercase opacity-60 space-y-1 pt-4 border-black/5 mt-auto"
-          >
-            <p>EST. SHIPPING 2–5 DAYS</p>
-            <p>TRACKED DELIVERY</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- OPTIONAL (desktop only footer strip) -->
     <div
-      class="hidden md:grid grid-cols-12 border-t border-black/10 text-[10px] uppercase opacity-60"
+      class="hidden md:grid grid-cols-12 border-t border-black/10 text-[10px] uppercase opacity-60 flex-shrink-0"
     >
       <div class="p-4 col-span-3 border-r border-black/10">LO // ATLANTA</div>
       <div class="p-4 col-span-6 text-center">BORN WRONG</div>

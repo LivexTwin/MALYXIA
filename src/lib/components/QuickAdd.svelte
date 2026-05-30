@@ -35,7 +35,7 @@ const colors = getOptionValues(product, "Color");
 
 
 <div class=" flex flex-col pt-2">
-  <span class="text-xs  opacity-60 uppercase tracking-wide pb-2">Size</span>
+  <span class="text-xs  opacity-60 uppercase tracking-wide ">Size</span>
   <div class="flex gap-1.5">
     {#each sizeOptions as size}
       <button
@@ -52,7 +52,7 @@ const colors = getOptionValues(product, "Color");
     {/each}
   </div>
 
-  <span class="text-xs  opacity-60 uppercase tracking-wide py-2">Color</span>
+  <span class="text-xs  opacity-60 uppercase tracking-wide pb-4">Color</span>
 
 {#key JSON.stringify(selectedOptions)}
   <ColorSwatch
