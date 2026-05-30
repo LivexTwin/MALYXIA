@@ -3,105 +3,150 @@ import TheLogo from "../components/TheLogo.astro";
 import DefaultLayout from "../layouts/DefaultLayout.astro";
 import { shopifyFetch } from "../lib/shopify.ts";
 import { GET_DROP_PRODUCT } from "../lib/queries/products.ts";
-import BuyNow from "../components/Cart/BuyNow.svelte";
 
+import BuyNow from "../components/Cart/BuyNow.svelte";
 import SeoHead from "../components/SeoHead.astro";
 import ProductMediaGallery from "../components/Product/ProductMediaGallery.svelte";
 import ProductPurchaseBlock from "../components/Product/ProductPurchaseBlock.svelte";
 
 const data = await shopifyFetch(GET_DROP_PRODUCT);
 const product = data.products.nodes[0];
+
+// normalized layer
+// const bg = product.chapterBg?.reference?.image?.url ?? null;
+const stock = product.dropStock?.value ?? "11/18";
 ---
 
 <DefaultLayout>
   <SeoHead title="MALYXIA — Chapter 1" />
 
-  <!-- GLOBAL HERO + SCROLL CORE -->
-  <main class="relative">
-    <!-- 🌌 HERO (INTENT DROP) -->
-    <section
-      class="min-h-[100svh] md:min-h-screen flex flex-col justify-center items-center text-center px-6 relative"
+  <main class="relative flex flex-col md:h-screen">
+    <!-- ===================== -->
+    <!-- MOBILE SYSTEM BAR ONLY -->
+    <!-- ===================== -->
+    <div
+      class="fixed top-0 left-0 right-0 md:hidden border-b border-black/10 bg-white/95 backdrop-blur-sm z-50"
     >
-      <h1 class="text-6xl md:text-8xl font-medium font-mono tracking-tighter">
-        INTENT
-      </h1>
-
-      <p class="mt-4 text-[10px] uppercase tracking-[0.25em] opacity-60">
-        Chapter 1
-      </p>
-
-      <!-- subtle transition hint -->
       <div
-        class="absolute bottom-20 md:bottom-10 text-[10px] uppercase opacity-70"
+        class="flex items-center justify-between px-4 py-3 text-[10px] uppercase tracking-wider"
       >
-        Scroll to enter drop
-      </div>
-    </section>
-
-    <!-- 🌑 SPLIT PRODUCT REALITY -->
-    <section class="min-h-screen grid grid-cols-1 md:grid-cols-2 gap-0">
-      <!-- LEFT: LORE / SPEC BLOCK -->
-      <div class="p-8 md:p-16 text-xs leading-relaxed border-r border-black/10">
-        <p class="uppercase opacity-60 mb-6">[DROP_01] // INTENT TEE</p>
-
-        <p class="mb-6">
-          PRICE // $55.00<br />
-        </p>
-        <p class="mb-6">
-          STOCK // {product.metafield?.value ?? "11/18"}
-        </p>
-        <p class="uppercase opacity-60 mb-2">SPECIFICATION:</p>
-        <p class="mb-6">
-          - HEAVYWEIGHT STRUCTURED BUILD<br />
-          - RELAXED BOXY SILHOUETTE<br />
-          - FADED BLACK WASH FINISH (HAND-TREATED)
-        </p>
-
-        <p class="uppercase opacity-60 mb-2">THE PHILOSOPHY:</p>
-        <p>
-          A STUDY IN PURPOSEFUL IMPERFECTION.<br />
-          MADE TO BE WORN UNTIL RIPPED.
-        </p>
-      </div>
-
-      <!-- RIGHT: MEDIA + PURCHASE -->
-      <div class="p-8 md:p-16 flex flex-col">
-        <!-- MEDIA -->
-        <div class="w-full mb-6">
-          <ProductMediaGallery
-            client:load
-            images={product.images}
-            altBase={product.title}
-            productHandle={product.handle}
-            variant="compact"
-          />
+        <div class="flex flex-col leading-none">
+          <span>{product.title}</span>
+          <span class="opacity-60">$55</span>
         </div>
 
-        <!-- TITLE -->
-        <a href={`/products/${product.handle}`} class="w-fit">
-          <h2 class="uppercase tracking-wide text-sm">
-            {product.title}
-          </h2>
-        </a>
+        <BuyNow client:load product={product} />
+      </div>
+    </div>
 
-        <!-- PURCHASE -->
-        <ProductPurchaseBlock
-          client:only="svelte"
-          product={product}
-          mode="quick"
-        />
+    <!-- ===================== -->
+    <!-- HERO / MAIN SYSTEM -->
+    <!-- ===================== -->
+    <section
+      class="min-h-[100svh] md:min-h-0 md:flex-1 grid grid-cols-1 md:grid-cols-12 relative overflow-hidden pt-14 md:pt-0"
+    >
+      <!-- ===================== -->
+      <!-- DESKTOP HEADER STRIP -->
+      <!-- ===================== -->
+      <div
+        class="hidden md:grid col-span-12 grid-cols-12 border-b border-black/10 z-10 text-[10px] uppercase tracking-[0.2em] opacity-60"
+      >
+        <div class="p-4 md:col-span-3 border-r border-black/10">
+          WE ARE NOT PERFECT
+        </div>
+
+        <div class="p-4 md:col-span-6 text-center">
+          DROP_01 // {product.title}
+        </div>
+
+        <div class="p-4 md:col-span-3 text-right border-l border-black/10">
+          READY TO SHIP
+        </div>
+      </div>
+
+      <!-- ===================== -->
+      <!-- CORE GRID -->
+      <!-- ===================== -->
+      <div
+        class="col-span-12 grid grid-cols-1 md:grid-cols-12 items-stretch z-10 relative"
+      >
+        <!-- LEFT (SPEC) -->
+        <div
+          class="md:block md:col-span-3 border-r border-black/10 p-6 flex flex-col justify-between text-xs"
+        >
+          <div class="space-y-4">
+            <p class="uppercase opacity-60 text-[10px]">SPECIFICATIONS</p>
+
+            <p class="text-[11px] leading-relaxed uppercase">
+              - HEAVYWEIGHT STRUCTURED BUILD<br />
+              - RELAXED BOXY FIT<br />
+              - FADED BLACK WASH FINISH
+            </p>
+          </div>
+        </div>
+
+        <!-- ===================== -->
+        <!-- CENTER (IMAGE) -->
+        <!-- ===================== -->
+        <div
+          class="col-span-1 md:col-span-6 md:border-b-0 p-4 md:p-8 flex items-center justify-center bg-neutral-50/40 md:bg-transparent min-h-[32vh] md:min-h-0"
+        >
+          <div
+            class="w-full max-w-[260px] md:max-w-lg mx-auto mix-blend-multiply"
+          >
+            <ProductMediaGallery
+              client:load
+              images={product.images}
+              altBase={product.title}
+              productHandle={product.handle}
+              variant="compact"
+            />
+          </div>
+        </div>
+
+        <!-- ===================== -->
+        <!-- RIGHT (ACTION) -->
+        <!-- ===================== -->
+        <div class="col-span-1 md:col-span-3 p-6 flex flex-col space-y-6">
+          <div class="space-y-3">
+            <div
+              class="flex justify-between items-baseline border-b border-black/5 pb-2"
+            >
+              <a href={`/products/${product.handle}`}>
+                <h2 class="uppercase text-sm">{product.title}</h2>
+              </a>
+              <span class="text-xs opacity-70">$55.00</span>
+            </div>
+
+            <div class="text-[10px] uppercase opacity-60">
+              STOCK // {stock}
+            </div>
+          </div>
+
+          <ProductPurchaseBlock
+            client:only="svelte"
+            product={product}
+            mode="quick"
+          />
+
+          <div
+            class="text-[10px] uppercase opacity-60 space-y-1 pt-4 border-black/5 mt-auto"
+          >
+            <p>EST. SHIPPING 2–5 DAYS</p>
+            <p>TRACKED DELIVERY</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 📱 MOBILE CTA BAR -->
+    <!-- OPTIONAL (desktop only footer strip) -->
     <div
-      class="fixed top-0 left-0 right-0 md:hidden border-t border-black/10 bg-white"
+      class="hidden md:grid grid-cols-12 border-t border-black/10 text-[10px] uppercase opacity-60"
     >
-      <div
-        class="flex items-center justify-between px-4 py-3 text-xs uppercase"
-      >
-        <span>{product.title} — $55.00</span>
-        <BuyNow client:load product={product} />
+      <div class="p-4 col-span-3 border-r border-black/10">LO // ATLANTA</div>
+      <div class="p-4 col-span-6 text-center">BORN WRONG</div>
+      <div class="p-4 col-span-3 text-right border-l border-black/10">
+        © 2026
       </div>
     </div>
   </main>

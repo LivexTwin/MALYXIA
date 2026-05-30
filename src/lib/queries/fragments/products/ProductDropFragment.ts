@@ -4,8 +4,18 @@ export const PRODUCT_DROP_FRAGMENT = `
     title
     handle
 
-    metafield(namespace: "drop", key: "stock_display") {
+    dropStock: metafield(namespace: "drop", key: "stock_display") {
       value
+    }
+
+    chapterBg: metafield(namespace: "chapter", key: "bg_image") {
+      reference {
+        ... on MediaImage {
+          image {
+            url
+          }
+        }
+      }
     }
 
     options {
