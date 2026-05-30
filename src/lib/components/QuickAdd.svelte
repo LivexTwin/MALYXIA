@@ -35,7 +35,7 @@ const colors = getOptionValues(product, "Color");
 
 
 <div class=" flex flex-col pt-2">
-  <span class="text-xs  text-gray-400 uppercase tracking-wide pb-2">Size</span>
+  <span class="text-xs  opacity-60 uppercase tracking-wide pb-2">Size</span>
   <div class="flex gap-1.5">
     {#each sizeOptions as size}
       <button
@@ -45,14 +45,14 @@ const colors = getOptionValues(product, "Color");
         class:underline={selectedOptions.Size === size}
         class:opacity-40={!isSizeAvailable(size)}
         class:pointer-events-none={!isSizeAvailable(size)}
-        class=" text-xs px-2 py-2 min-h-[40px] hover:underline"
+        class=" text-xs pe-2.5 py-2 min-h-[48px] hover:underline"
       >
         {size}
       </button>
     {/each}
   </div>
 
-  <span class="text-xs  text-gray-400 uppercase tracking-wide py-2">Color</span>
+  <span class="text-xs  opacity-60 uppercase tracking-wide py-2">Color</span>
 
 {#key JSON.stringify(selectedOptions)}
   <ColorSwatch

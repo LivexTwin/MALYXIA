@@ -57,13 +57,13 @@ function prev() {
 
 
    <div class="flex justify-between items-center p-2">
-  <p class="text-[11px] opacity-50 tracking-wider">
+  <p class="text-[11px] opacity-60 tracking-wider">
     {index + 1} / {variant === "compact" ? 2 : images.length}
   </p>
 
   <a
     href={`/products/${productHandle}`}
-    class="text-xs uppercase tracking-wider underline opacity-50"
+    class="text-xs uppercase tracking-wider underline opacity-60"
   >
     Full View
   </a>
