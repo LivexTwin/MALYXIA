@@ -212,7 +212,7 @@
           currencyCode={displayVariant.price.currencyCode}
           />
 
-      <div class="flex flex-wrap gap-1 pt-3.5">
+      <div class="flex flex-wrap gap-1 py-3.5">
         <DetailSelector
           {product}
           selectedOptions={selectedOptions}
