@@ -10,6 +10,7 @@ import {
 import ProductMediaGallery from "@components/Product/ProductMediaGallery.svelte";
 import ProductPurchaseBlock from "@components/Product/ProductPurchaseBlock.svelte";
 import ProductInfoBlock from "@components/Product/ProductInfoBlock.astro";
+import SizeGuide from "@lib/components/SizeGuide.svelte";
 
 export async function getStaticPaths() {
   const data = await shopifyFetch(GET_PRODUCT_HANDLES);
@@ -33,17 +34,19 @@ const product = data.productByHandle;
 
 <DefaultLayout>
   <div class="relative z-10 min-h-screen pb-20">
-    <div class="lg:grid lg:gap-12 lg:grid-cols-[1fr_500px]">
+    <div
+      class="md:grid md:grid-cols-[1fr_320px] md:pl-10 lg:grid-cols-[1fr_500px] md:gap-12"
+    >
       <!-- LEFT: MEDIA -->
       <div class="flex-1 min-w-0">
-        <div class="block lg:hidden">
+        <div class="block md:hidden">
           <ProductMediaGallery
             client:load
             variant="swipe"
             images={product.images}
           />
         </div>
-        <div class="hidden lg:block">
+        <div class="hidden md:block">
           <ProductMediaGallery
             client:load
             variant="editorial"
@@ -55,7 +58,7 @@ const product = data.productByHandle;
       <!-- RIGHT: STICKY INFO -->
       <div class="relative flex flex-col">
         <div class="flex-1"></div>
-        <div class="lg:sticky lg:bottom-1">
+        <div class="md:sticky md:bottom-1">
           <div class="space-y-8 p-5">
             <ProductInfoBlock product={product} />
             <ProductPurchaseBlock
@@ -63,6 +66,7 @@ const product = data.productByHandle;
               product={product}
               mode="detail"
             />
+            <SizeGuide client:only="svelte" />
           </div>
         </div>
       </div>

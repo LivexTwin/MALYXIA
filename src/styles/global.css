@@ -14,6 +14,11 @@
     font-family: "Space Grotesk", sans-serif;
     letter-spacing: 0.01em;
   }
+
+  html,
+  body {
+    overscroll-behavior: none;
+  }
 }
 
 /* TOKENS */
