@@ -19,8 +19,6 @@ const stock = product.dropStock?.value ?? "11/18";
   <SeoHead title="MALYXIA — Chapter 1" />
 
   <main class="relative flex flex-col md:h-screen">
-    <!-- HEADER (NO BUY NOW HERE ANYMORE) -->
-
     <!-- MAIN DROP EXPERIENCE -->
     <section
       class="min-h-[100svh] md:min-h-0 md:flex-1 flex flex-col relative overflow-hidden pt-14 md:pt-0"
@@ -58,7 +56,7 @@ const stock = product.dropStock?.value ?? "11/18";
           </div>
         </div>
 
-        <!-- CENTER MEDIA (IMPORTANT FIX HERE) -->
+        <!-- CENTER MEDIA -->
         <div
           data-media
           class="w-full md:w-1/2 p-4 md:p-8 flex items-center justify-center bg-neutral-50/40 md:bg-transparent"
@@ -82,7 +80,9 @@ const stock = product.dropStock?.value ?? "11/18";
             <div
               class="flex justify-between items-baseline border-b border-black/5 pb-2"
             >
-              <h2 class="uppercase text-sm">{product.title}</h2>
+              <a href={`/products/${product.handle}`} class="hover:underline">
+                <h2 class="uppercase text-sm">{product.title}</h2>
+              </a>
               <div class="text-[10px] uppercase opacity-60">
                 STOCK // {stock}
               </div>
