@@ -175,7 +175,7 @@
 
 
   {#if mode === "quick"}
-    <div class="space-y-5">
+    <div class="space-y-5 pb-4">
 
      <Money
           amount={displayVariant.price.amount}
@@ -212,7 +212,7 @@
           currencyCode={displayVariant.price.currencyCode}
           />
 
-      <div class="flex flex-wrap gap-1 py-3.5">
+      <div class="flex flex-wrap gap-1 py-4">
         <DetailSelector
           {product}
           selectedOptions={selectedOptions}
@@ -248,7 +248,7 @@
     {error}
   </p>
 {:else if infoMessage}
-  <p class="text-[11px] uppercase tracking-wide text-neutral-500 mb-2">
+  <p class="text-[11px] uppercase tracking-wide text-neutral-500 mb-4">
     {infoMessage}
   </p>
 {/if}
