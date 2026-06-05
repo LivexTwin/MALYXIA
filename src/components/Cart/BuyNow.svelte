@@ -5,7 +5,7 @@
 
   export let product;
 
- let isVisible = true;
+ let isVisible = false;
 
   const soldOut = isCompletelySoldOut(product.variants);
   const variant = getFirstAvailableVariant(product.variants);

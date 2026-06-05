@@ -244,11 +244,11 @@
 
 
 {#if error}
-  <p class="text-[11px] uppercase tracking-wide text-red-600 mt-2">
+  <p class="text-[11px] uppercase tracking-wide text-red-600 mb-2">
     {error}
   </p>
 {:else if infoMessage}
-  <p class="text-[11px] uppercase tracking-wide text-neutral-500 mt-2">
+  <p class="text-[11px] uppercase tracking-wide text-neutral-500 mb-2">
     {infoMessage}
   </p>
 {/if}

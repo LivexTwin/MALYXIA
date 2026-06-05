@@ -42,6 +42,7 @@
   on:cancel|preventDefault={closeDialog}
   on:click={handleOutsideClick}
   on:close={closeDialog}
+  tabindex="-1"
 >
   <div class="p-0">
   <svg
@@ -168,6 +169,10 @@
     margin: auto;
     background: white;
   }
+
+  dialog:focus {
+  outline: none;
+}
 
   dialog::backdrop {
     background: rgba(255, 255, 255, 0.765);
